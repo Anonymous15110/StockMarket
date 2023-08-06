@@ -9,6 +9,7 @@ import FinancialDevelopmentChart from '../../../components/Charts/FinancialDevel
 
 interface StockCardProps {
     stock: Stock;
+    index: number;
     onBuy: ( amount: number ) => void;
     onSell: ( amount: number ) => void;
 }
@@ -16,7 +17,7 @@ interface StockCardProps {
 export default class StockmarketCard extends React.Component<StockCardProps> {
 
     render() {
-        const {stock, onBuy, onSell} = this.props;
+        const {stock, index, onBuy, onSell} = this.props;
 
         // TODO: improve performance
 
@@ -33,7 +34,7 @@ export default class StockmarketCard extends React.Component<StockCardProps> {
                         <Col xs={12} smPull={8} sm={4} lgPull={9} lg={3} style={{paddingRight: 0}}>
                             <h4 className="title text-underline">{stock.name}</h4>
                             <br/>
-                            <StockDetails stock={stock}/>
+                            <StockDetails stock={stock} index={index}/>
                             <br/>
                             <BuyOrSellView onBuy={onBuy} onSell={onSell} />
                         </Col>

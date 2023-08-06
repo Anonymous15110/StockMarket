@@ -28,11 +28,12 @@ class Market extends React.Component<MarketProps, MarketState> {
                 <Grid fluid={true}>
                     <Row>
                         {
-                            stocks.map( stock => {
+                            stocks.map( (stock, index) => {
                                 return (
                                     <Col key={stock.name} xs={12}>
                                         <StockmarketCard
                                             stock={stock}
+                                            index={index}
                                             onBuy={( amount: number ) => {
                                                 buy( stock.name, amount );
                                             }}
@@ -42,7 +43,7 @@ class Market extends React.Component<MarketProps, MarketState> {
                                         />
                                     </Col>
                                 );
-                            } )
+                            }, )
 
                         }
                     </Row>

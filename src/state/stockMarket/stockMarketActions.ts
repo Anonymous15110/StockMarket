@@ -7,6 +7,7 @@ export const BUY_OR_SELL_STOCKS = 'stockMarketReducer/buy-or-sell-stocks';
 export const CHANGE_STOCK_QUANTITY = 'stockMarketReducer/change-stock-quantity';
 export const UPDATE_STOCK = 'stockMarketReducer/update-stock';
 export const UPDATE_STOCKS = 'stockMarketReducer/update-stocks';
+export const LOAN_VALUES = 'stockMarketReducer/loan-values';
 
 export const loadStocks = () => ({
     type: LOAD_STOCKS
@@ -16,30 +17,35 @@ export const calculateNextStockValues = (): GenericAction => ({
     type: CALCULATE_NEXT_STOCK_VALUES
 });
 
-export const addStocks = ( stocks: Stock[] ): AddStocksAction => ({
+export const addStocks = (stocks: Stock[]): AddStocksAction => ({
     type: ADD_STOCKS,
     stocks
 });
 
-export const buyOrSellStock = ( stockName: string, amount: number ): BuyOrSellStockAction => ({
+export const buyOrSellStock = (stockName: string, amount: number): BuyOrSellStockAction => ({
     type: BUY_OR_SELL_STOCKS,
     stockName,
     amount
 });
 
-export const changeStockQuantity = ( name: string, amount: number ): ChangeStockQuantityAction => ({
+export const loanValues = (amount: number): LoanAction => ({
+    type: LOAN_VALUES,
+    amount
+});
+
+export const changeStockQuantity = (name: string, amount: number): ChangeStockQuantityAction => ({
     type: CHANGE_STOCK_QUANTITY,
     name,
     amount
 });
 
-export const updateStock = ( stockName: string, stock: Stock ): UpdateStockAction => ({
+export const updateStock = (stockName: string, stock: Stock): UpdateStockAction => ({
     type: UPDATE_STOCK,
     stockName,
     stock
 });
 
-export const updateStocks = ( updates: UpdateStockData[] ): UpdateStocksAction => ({
+export const updateStocks = (updates: UpdateStockData[]): UpdateStocksAction => ({
     type: UPDATE_STOCKS,
     updates
 });
@@ -74,5 +80,10 @@ export interface AddStocksAction {
 export interface BuyOrSellStockAction {
     type: string;
     stockName: string;
+    amount: number;
+}
+
+export interface LoanAction {
+    type: string;
     amount: number;
 }

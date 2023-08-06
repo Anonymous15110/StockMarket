@@ -14,6 +14,8 @@ import {
     calculateNextStockValues,
     changeStockQuantity,
     LOAD_STOCKS,
+    LOAN_VALUES,
+    LoanAction,
     UpdateStockData,
     updateStocks
 } from './stockMarketActions';
@@ -35,6 +37,7 @@ function getValueChange(valueHistory: FinancialSnapshot[]) {
 const stockJson = require('./stocks.json');
 
 function getNextValue(currentValue: number, volatility: number): number {
+
     volatility = volatility / 100;
     const random = getRandomArbitrary(0, 1);
     let changePercent = 2 * volatility * random;
@@ -124,31 +127,73 @@ function* buyOrSellStocks(action: BuyOrSellStockAction) {
     yield put(changeAccountValue(-totalStockBuyValue));
     stocks = yield select(getStocks);
 }
+function* loan(action: LoanAction) {
+    const accountValue = yield select(getAccountValue);
 
+    // check if enought money
+    if (accountValue < action.amount) {
+        addNotification({
+            level: 'error',
+            message: 'Not enough Money'
+        });
+        return;
+    }
+
+    // if it's get to here everything is valid
+
+    // Buy Stocks
+    // update stocks in Store
+    yield put(changeAccountValue(-action.amount));
+}
+
+let res: string[] = [];
+let newValue: number;
 function* calculateAllNextStockValues() {
     const stocks: Stock[] = yield select(getStocks);
     const updates: UpdateStockData[] = [];
-
+    const st = JSON.parse(sessionStorage.getItem('stocksList')!);
+    fetch('http://localhost:3001/changevalue', {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    })
+        .then(response => response.json())
+        .then(json => { let arr = JSON.stringify(json); res = arr.substring(1, arr.length - 1).split(','); })
+        .catch(err => console.log(err));
+    let i = 0;
     for (let s of stocks) {
-        let newValue = getNextValue(s.value, s.volatility);
-        var valueHistory = cloneState(s.valueHistory);
-        valueHistory.splice(0, 1); // delete first entry
-        valueHistory.push({
-            value: newValue,
-            date: moment().format('HH:mm')
-        });
-
-        const valueChange = getValueChange(valueHistory);
-
-        updates.push({
-            stockName: s.name,
-            stock: {
-                ...s,
-                valueHistory: valueHistory,
-                value: newValue,
-                valueChange: Number(valueChange.toFixed(2))
+        console.log(res);
+        if (res.length !== 0 && res !== undefined) {
+            if (st[i].value === parseFloat(res[i])) {
+                console.log(parseFloat(res[i]));
+                newValue = getNextValue(s.value, s.volatility);
+            } else {
+                console.log(parseFloat(res[i]));
+                newValue = parseFloat(res[i]);
+                st[i].value = parseFloat(res[i]);
+                sessionStorage.setItem('stocksList', JSON.stringify(st));
+                console.log('ahh');
             }
-        });
+            var valueHistory = cloneState(s.valueHistory);
+            valueHistory.splice(0, 1); // delete first entry
+            valueHistory.push({
+                value: newValue,
+                date: moment().format('HH:mm')
+            });
+
+            const valueChange = getValueChange(valueHistory);
+
+            updates.push({
+                stockName: s.name,
+                stock: {
+                    ...s,
+                    valueHistory: valueHistory,
+                    value: newValue,
+                    valueChange: Number(valueChange.toFixed(2))
+                }
+            });
+            i++;
+        }
+
     }
 
     yield put(updateStocks(updates));
@@ -159,6 +204,7 @@ function* calculateAllNextStockValues() {
 function* stockMarketSaga() {
     yield takeEvery(LOAD_STOCKS, loadinitialStocks);
     yield takeEvery(BUY_OR_SELL_STOCKS, buyOrSellStocks);
+    yield takeEvery(LOAN_VALUES, loan);
     yield takeEvery(CALCULATE_NEXT_STOCK_VALUES, calculateAllNextStockValues);
 }
 

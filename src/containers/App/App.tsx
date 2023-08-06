@@ -9,6 +9,7 @@ import appRoutes from '../../routes/routes';
 import { AppState } from '../../state/AppState';
 import { getStockValue } from '../../state/depot/depotSelector';
 import { loadState } from '../../state/initialLoad/initialLoadActions';
+import Login from 'src/views/Login';
 
 interface AppProps {
     currentMoney: number;
@@ -30,26 +31,26 @@ class App extends React.Component<AppProps> {
         return (
 
             <div className="wrapper">
-                <NotificationSystemFrame/>
+                <NotificationSystemFrame />
+                <Route path="/login" component={Login} />
                 <Sidebar
                     currentBalance={this.props.currentMoney}
                     currentStockBalance={this.props.currentStockBalance}
                 />
                 <div id="main-panel" className="main-panel">
                     <Header {...this.props} />
+
                     <Switch>
-                        {
-                            appRoutes.map((prop, key) => {
-                                if (prop.redirect) {
-                                    return (<Redirect path={prop.path} to={prop.to!} key={key}/>);
-                                }
-                                return (
-                                    <Route path={prop.path} component={prop.component} key={key}/>
-                                );
-                            })
-                        }
+                        {appRoutes.map((prop, key) => {
+                            if (prop.redirect) {
+                                return (<Redirect path={prop.path} to={prop.to!} key={key} />);
+                            }
+                            return (
+                                <Route path={prop.path} component={prop.component} key={key} />
+                            );
+                        })}
                     </Switch>
-                    <Footer/>
+                    <Footer />
                 </div>
             </div>
         );
