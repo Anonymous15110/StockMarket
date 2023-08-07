@@ -1,7 +1,7 @@
 {
   "name": "stockmarket-simulation",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "http://anonymous15110.github.io",
   "private": true,
   "jest": {
     "collectCoverageFrom": [
@@ -67,10 +67,13 @@
     "cross-env": "^5.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "latest",
+    "gh-pages": "^5.0.0",
     "redux-devtools-extension": "^2.13.5",
     "typescript": "^2.9.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "watch-css": "sass --watch --update --style=expanded assets/sass:assets/css",
     "build-css": "sass --no-source-map --style=compressed src/assets/sass:assets/css",
     "start-ts": "react-scripts-ts start",
