@@ -92,7 +92,7 @@ const onLogin = (event: React.FormEvent) => {
     password: (document.getElementById('password') as HTMLInputElement).value,
   };
 
-  fetch('http://localhost:3001/loginapi', {
+  fetch('https://stock-market-express.vercel.app/loginapi', {
     method: 'POST',
     body: JSON.stringify(signInData),
     headers: { 'Content-type': 'application/json; charset=UTF-8' }
