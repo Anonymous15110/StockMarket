@@ -16688,7 +16688,7 @@ var appRoutes = [
     { path: '/market', name: 'Market', icon: 'pe-7s-graph1', component: __WEBPACK_IMPORTED_MODULE_1__views_Market__["a" /* default */] },
     { path: '/quests', name: 'Quests', icon: 'pe-7s-note2', component: __WEBPACK_IMPORTED_MODULE_2__views_Quests__["a" /* default */] },
     { path: '/loan', name: 'Loans', icon: 'pe-7s-note2', component: __WEBPACK_IMPORTED_MODULE_3__views_Loan__["a" /* default */] },
-    { path: '/', name: 'Depot', redirect: true, to: '/depot' },
+    { path: '/', name: 'Depot', redirect: true, to: '/login' },
 ];
 /* harmony default export */ __webpack_exports__["a"] = (appRoutes);
 
