@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 // import { Redirect, Switch } from 'react-router-dom';
 
 interface LoginProps {
@@ -262,6 +263,9 @@ class Login extends React.Component<LoginProps> {
 
           </form>
         </div>
+        <NavLink to={'/depot'} className="nav-link" activeClassName="active">
+                                <p>{'To HomePage'}</p>
+                            </NavLink>
       </div>
     );
   }
