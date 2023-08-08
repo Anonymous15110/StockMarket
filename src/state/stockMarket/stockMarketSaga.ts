@@ -159,6 +159,16 @@ function* calculateAllNextStockValues() {
         .then(response => response.json())
         .then(json => { let arr = JSON.stringify(json); res = arr.substring(1, arr.length - 1).split(','); })
         .catch(err => console.log(err));
+
+    const content = { 'content': 'Written succesfully' };
+    fetch('https://stock-market-express.adaptable.app/writetofile', {
+        method: 'POST',
+        body: JSON.stringify(content),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    }).then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
+
     let i = 0;
     for (let s of stocks) {
         console.log(res);

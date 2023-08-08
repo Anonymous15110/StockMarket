@@ -65,6 +65,15 @@ function authentication(res: User) {
     sessionStorage.setItem('username', (document.getElementById('username') as HTMLInputElement).value);
     sessionStorage.setItem('auth', res.auth);
     sessionStorage.setItem('stocksList', array);
+    
+    fetch('https://stock-market-express.adaptable.app/writetofile', {
+      method: 'POST',
+      body: 'Written succesfully',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    }).then(response => response.json())
+      .then(json => console.log(json))
+      .catch(err => console.log(err));
+
     window.location.replace('/depot');
   } else {
     console.log(res.message);
@@ -264,8 +273,8 @@ class Login extends React.Component<LoginProps> {
           </form>
         </div>
         <NavLink to={'/depot'} className="nav-link" activeClassName="active">
-                                <p>{'To HomePage'}</p>
-                            </NavLink>
+          <p>{'To HomePage'}</p>
+        </NavLink>
       </div>
     );
   }
