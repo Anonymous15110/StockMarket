@@ -23,7 +23,7 @@ const manageClick = (index: number) => {
 
         let obj = { value: parseFloat((document.getElementById('input' + index) as HTMLInputElement).value), index: index };
         console.log(obj.value);
-        fetch('https://stock-market-express.vercel.app/changevalue', {
+        fetch('https://stock-market-express.adaptable.app/changevalue', {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: { 'Content-type': 'application/json; charset=UTF-8' }

@@ -11,76 +11,34 @@ interface User {
 }
 let stocks = [
   {
-    'value': 345.44,
+    'value': 1138,
   },
   {
-    'value': 168.90,
+    'value': 2015,
   },
   {
-    'value': 20.76,
+    'value': 714.50,
   },
   {
-    'value': 327.44,
+    'value': 1267,
   },
   {
-    'value': 69.38,
+    'value': 408.65,
   },
   {
-    'value': 1736.23,
+    'value': 431.60,
   },
   {
-    'value': 185.11,
+    'value': 454.90,
   },
   {
-    'value': 2210.03,
+    'value': 300,
   },
   {
-    'value': 898.98,
+    'value': 827.05,
   },
   {
-    'value': 348.66,
-  },
-  {
-    'value': 200.07,
-  },
-  {
-    'value': 88.76,
-  },
-  {
-    'value': 178.32,
-  },
-  {
-    'value': 30.64,
-  },
-  {
-    'value': 40.50,
-  },
-  {
-    'value': 658.01,
-  },
-  {
-    'value': 1115.65,
-  },
-  {
-    'value': 413.25,
-  },
-  {
-    'value': 115.2,
-  },
-  {
-    'value': 85.7,
-  },
-  {
-    'value': 333.333,
-  },
-  {
-    'value': 124.32,
-  },
-  {
-    'value': 20.01,
-  },
-  {
-    'value': 2001.00,
+    'value': 965,
   }
 ];
 const array = JSON.stringify(stocks);
@@ -92,7 +50,7 @@ const onLogin = (event: React.FormEvent) => {
     password: (document.getElementById('password') as HTMLInputElement).value,
   };
 
-  fetch('https://stock-market-express.vercel.app/loginapi', {
+  fetch('https://stock-market-express.adaptable.app/loginapi', {
     method: 'POST',
     body: JSON.stringify(signInData),
     headers: { 'Content-type': 'application/json; charset=UTF-8' }

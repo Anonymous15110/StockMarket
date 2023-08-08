@@ -15,12 +15,12 @@ export class PriceTag extends React.PureComponent<PriceTagProps, PriceTagState> 
     render() {
         const value = this.props.value;
         if ( value === null || value === undefined ) {
-            return '$ -';
+            return '₹ -';
         }
         const valueAsString = value.toFixed( 2 ).toString();
         const formatedValue = valueAsString.replace( /\B(?=(\d{3})+(?!\d))/g, ',' );
         return (
-            `$ ${formatedValue}`
+            `₹ ${formatedValue}`
         );
     }
 }

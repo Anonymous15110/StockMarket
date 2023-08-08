@@ -18,7 +18,7 @@ const onSubmit = (event: React.FormEvent) => {
     value: (document.getElementById('value') as HTMLInputElement).value,
   };
 
-  fetch('https://stock-market-express.vercel.app/loanadminapi', {
+  fetch('https://stock-market-express.adaptable.app/loanadminapi', {
     method: 'POST',
     body: JSON.stringify(loanData),
     headers: { 'Content-type': 'application/json; charset=UTF-8' }
@@ -260,7 +260,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       type: 'lend',
     };
 
-    fetch('https://stock-market-express.vercel.app/loanuserapi', {
+    fetch('https://stock-market-express.adaptable.app/loanuserapi', {
       method: 'POST',
       body: JSON.stringify(loanData),
       headers: { 'Content-type': 'application/json; charset=UTF-8' }

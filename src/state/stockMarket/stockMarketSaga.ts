@@ -152,7 +152,7 @@ function* calculateAllNextStockValues() {
     const stocks: Stock[] = yield select(getStocks);
     const updates: UpdateStockData[] = [];
     const st = JSON.parse(sessionStorage.getItem('stocksList')!);
-    fetch('https://stock-market-express.vercel.app/changevalue', {
+    fetch('https://stock-market-express.adaptable.app/changevalue', {
         method: 'GET',
         headers: { 'Content-type': 'application/json; charset=UTF-8' }
     })
